@@ -10,24 +10,19 @@ $("#image-selector").change(function () {
 });
 
 let model;
-console.log("Before loading model...");
-
 (async function() {
-    console.log("Inside async function");
-    try {
-        model = await tf.loadLayersModel('/model/model.json');
-        console.log("Model loaded successfully!");  // If model loads
-        $('.progress-bar').hide();
-    } catch (error) {
-        console.error("Error loading the model:", error);
-        $('.progress-bar').hide();  // Hide progress bar even if loading fails
-    }
+    model = await tf.loadLayersModel('/model/model.json');
+    $('.progress-bar').hide();
 })();
 
 console.log("After calling the async function...");
 
-
 $("#predict-button").click(async function () {
+
+    // console.log("Predict button clicked!");
+    // $("#prediction-list").append("<li>cat</li>");               
+
+
     let image = $('#selected-image').get(0);
     let tensor = tf.fromPixels(image)
         .resizeNearestNeighbor([224,224])
